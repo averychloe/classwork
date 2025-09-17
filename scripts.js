@@ -70,10 +70,13 @@ class DamageInstance {
         }}, 5000);
         setTimeout(()=>{
                     document.getElementById(this.id.toString()).addEventListener("mousedown", (e)=>{
-            for(let i = 0; i < 5+20*Math.random(); i++){
-                new DamageInstance(e.clientX, e.clientY, 2);
-            }
-        }); console.log("fired")
+                        if(this.yVel>100){
+                                for(let i = 0; i < 5+20*Math.random(); i++){
+                                    new DamageInstance(e.clientX, e.clientY, 2);
+                                }
+                        }
+                            });
+                            
         }, 500)
 
     }
