@@ -25,7 +25,7 @@ text.addEventListener("mousedown", (e)=>{intensity=50; initialtimer=timer;
 
 
 setInterval(() => {
-    goodbyeworld.style.transform = `translateY(${100*Math.sin(seeds[1]*timer)}px) translateX(${100*Math.cos(seeds[2]*timer)}px) rotate(${100*Math.cos(seeds[3]*timer)}deg)`
+    goodbyeworld.style.transform = `translateY(${250*Math.sin(seeds[1]*timer)}px) translateX(${250*Math.cos(seeds[2]*timer)}px) rotate(${100*Math.cos(seeds[3]*timer)}deg)`
     goodbyeworld.style.fontSize = `${70+30*Math.cos(seeds[0]*timer)}px`
     goodbyeworld.style.color = `hsl(${180+180*Math.sin(seeds[4]*timer)}, ${75+25*Math.sin(seeds[5]*timer)}%, ${75+25*Math.sin(seeds[6]*timer)}%)`
     timer += 0.01;
@@ -49,14 +49,22 @@ class DamageInstance {
         this.yPos = y;
         this.xVel = 700*(Math.random() - 1/2);
         this.yVel = 700*(Math.random() - 1);
-        this.scale = 0.2+Math.random();
-        let instance = document.createElement("div")
+        const is_it_a_div = Math.random() > 0.1 ? true : false
+        this.scale = is_it_a_div ? 0.2+Math.random() : 4*(0.2+Math.random());
+        let instance = document.createElement(is_it_a_div ? "div" : "p")
         if(type==1){
             instance.classList.add("damage");
         }
         if(type==2){
             instance.classList.add("secondarydamage");
         }
+
+        //change later!
+        if(!is_it_a_div){
+            instance.innerHTML = "a"
+        }
+
+
         instance.style.transform = `scale(${this.scale})`
         instance.style.position = "absolute";
         instance.id = this.id.toString();
@@ -97,4 +105,57 @@ const createDamageInstance = () => {
     
 }
 
-console.log("i love coding")
+const elementsToMessUp = document.getElementsByClassName("randomly-mess-up")
+for(const element of elementsToMessUp){
+    let matrix = [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
+    for(let i = 0; i < 16; i++){
+        matrix[i] += (Math.random()-0.5)*0.00001
+    }
+    element.style.transform =  `matrix3d(${matrix.join(",")}) rotate(${(Math.random()-0.5)*0.2}deg)`
+}
+
+// add typos
+const uppercaseCharacters = "QWERTYUIOPASDFGHJKLZXCVBNM"
+const lowercaseCharacters = "qwertyuiopasdfghjklzxcvbnm"
+const misc = "1234567890-=_+:;?><,."
+const ps = document.getElementsByTagName("p");
+const as = document.getElementsByTagName("a");
+const threshold = 0.0007
+
+const typoify = (element)=>{
+    let text = element.innerText.split('');
+    for(let i=0; i<text.length-1; i++){
+        if(Math.random()<threshold){
+            text[i]=text[i+1]
+            text[i+1]=element.innerText[i]
+        }
+        if(Math.random()<threshold){
+            if(text[i]==text[i].toUpperCase()){
+                text[i]=uppercaseCharacters[Math.floor(Math.random()*uppercaseCharacters.length)]
+            }
+            if(text[i]==text[i].toLowerCase()){
+                text[i]=lowercaseCharacters[Math.floor(Math.random()*lowercaseCharacters.length)]
+            }
+        }
+        if(Math.random()<threshold/4){
+            text[i]=misc[Math.floor(Math.random()*misc.length)]
+        }
+        if(Math.random()<threshold){
+            if(text[i]==text[i].toUpperCase()){
+                text[i]=text[i].toLowerCase()
+            }
+            if(text[i]==text[i].toLowerCase()){
+                text[i]=text[i].toUpperCase()
+            }
+        }
+    }
+    element.innerText = text.join('');
+}
+
+for(const element of ps){
+    typoify(element)
+}
+
+for(const element of as){
+    typoify(element)
+}

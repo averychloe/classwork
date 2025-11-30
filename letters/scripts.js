@@ -1,18 +1,18 @@
-const pathLetters = document.getElementById("path-letters")
-const pathNumbers = document.getElementById("path-numbers")
-const pathEmojis = document.getElementById("path-emojis")
+// const pathLetters = document.getElementById("path-letters")
+// const pathNumbers = document.getElementById("path-numbers")
+// const pathEmojis = document.getElementById("path-emojis")
 
-pathLetters.style.position = "absolute";
-pathLetters.style.top = `${100+200*Math.random()}px`
-pathLetters.style.left = `${window.innerWidth*Math.random()}px`
+// pathLetters.style.position = "absolute";
+// pathLetters.style.top = `${100+200*Math.random()}px`
+// pathLetters.style.left = `${window.innerWidth*Math.random()}px`
 
-pathNumbers.style.position = "absolute";
-pathNumbers.style.top = `${150+200*Math.random()}px`
-pathNumbers.style.left = `${window.innerWidth*Math.random()}px`
+// pathNumbers.style.position = "absolute";
+// pathNumbers.style.top = `${150+200*Math.random()}px`
+// pathNumbers.style.left = `${window.innerWidth*Math.random()}px`
 
-pathEmojis.style.position = "absolute";
-pathEmojis.style.top = `${200+200*Math.random()}px`
-pathEmojis.style.left = `${window.innerWidth*Math.random()}px`
+// pathEmojis.style.position = "absolute";
+// pathEmojis.style.top = `${200+200*Math.random()}px`
+// pathEmojis.style.left = `${window.innerWidth*Math.random()}px`
 
 const elementsToMessUp = document.getElementsByClassName("randomly-mess-up")
 for(const element of elementsToMessUp){
